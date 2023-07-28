@@ -1,0 +1,242 @@
+! ***** EXEMPLO 1 - Pórtico Plano *****
+/NOPR
+/PMETH,OFF
+KEYW,PR_SET,1
+KEYW,PR_STRUC,1
+
+/INPUT,variavel_portico,txt,C:\Users\Paulo\Desktop\Programa_Paulo\
+
+/PREP7
+ET,1,BEAM3 ! TIPO DE ELEMENTO (VIGA 2D)
+
+!*** PROPRIEDADES GEOMÉTRICAS DA SEÇÃO DA VIGA ***
+R,1,a1,i1,1
+R,2,a2,i2,1
+R,3,a3,i3,1
+R,4,a4,i4,1
+R,5,a5,i5,1
+R,6,a6,i6,1
+R,7,a7,i7,1
+R,8,a8,i8,1
+R,9,a9,i9,1
+
+!*** PROPRIEDADES DO MATERIAL ***
+MP,EX,1,206000000 !(MÓDULO DE ELASTICIDADE)
+MP,PRXY,1,0.3 ! COEFICIENTE DE POISSON
+
+!*** DEFINIÇÃO DOS NÓS ***
+K,1,0,0,0,
+K,2,0,1.825,0
+K,3,0,3.65,0
+K,4,0,5.475,0
+K,5,0,7.30,0,
+K,6,0,9.125,0
+K,7,0,10.95,0
+
+K,8,1.525,3.65,0
+K,9,1.525,7.30,0
+K,10,1.525,10.95,0
+K,11,3.05,3.65,0
+K,12,3.05,7.30,0
+K,13,3.05,10.95,0
+K,14,4.575,3.65,0
+K,15,4.575,7.30,0
+K,16,4.575,10.95,0
+
+K,17,6.10,0,0,
+K,18,6.10,1.825,0,
+K,19,6.10,3.65,0,
+K,20,6.10,5.475,0,
+K,21,6.10,7.30,0,
+K,22,6.10,9.125,0
+K,23,6.10,10.95,0
+
+K,24,7.625,3.65,0
+K,25,7.625,7.30,0
+K,26,7.625,10.95,0
+K,27,9.15,3.65,0
+K,28,9.15,7.30,0
+K,29,9.15,10.95,0
+K,30,10.675,3.65,0
+K,31,10.675,7.30,0
+K,32,10.675,10.95,0
+
+K,33,12.20,0,0,
+K,34,12.20,1.825,0,
+K,35,12.20,3.65,0,
+K,36,12.20,5.475,0,,ll
+K,37,12.20,7.30,0,
+K,38,12.20,9.125,0
+K,39,12.20,10.95,0
+
+! *** DEFINIÇÃO DOS ELEMENTOS ***
+! PILARES DO GRUPO 1
+LSTR,1,2
+LSTR,2,3
+LSTR,33,34
+LSTR,34,35
+! PILAR DO GRUPO 2
+LSTR,17,18
+LSTR,18,19
+! PILARES DO GRUPO 3
+LSTR,3,4
+LSTR,4,5
+LSTR,35,36
+LSTR,36,37
+! PILAR DO GRUPO 4
+LSTR,19,20
+LSTR,20,21
+! PILARES DO GRUPO 5
+LSTR,5,6
+LSTR,6,7
+LSTR,37,38
+LSTR,38,39
+! PILAR DO GRUPO 6
+LSTR,21,22
+LSTR,22,23
+! VIGA DO GRUPO 7
+LSTR,7,10
+LSTR,10,13
+LSTR,13,16
+LSTR,16,23
+LSTR,23,26
+LSTR,26,29
+LSTR,29,32
+LSTR,32,39
+! VIGA DO GRUPO 8
+LSTR,5,9
+LSTR,9,12
+LSTR,12,15
+LSTR,15,21
+LSTR,21,25
+LSTR,25,28
+LSTR,28,31
+LSTR,31,37
+! VIGA DO GRUPO 9
+LSTR,3,8
+LSTR,8,11
+LSTR,11,14
+LSTR,14,19
+LSTR,19,24
+LSTR,24,27
+LSTR,27,30
+LSTR,30,35
+
+! *** DISCRETIZAÇÃO DO MODELO ***        
+TYPE,1 
+Real,1                    
+! Grupo Pilar 1  
+LSEL,S,,,1,2,1                    ! Pilares do térreo canto
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+LSEL,S,,,3,4,1  
+LESIZE,ALL,,,1  
+LMESH,ALL,1  
+
+TYPE,1 
+Real,2  
+! Grupo Pilar 2  
+LSEL,S,,,5,6,1                    ! Pilares do térreo meio
+LESIZE,ALL,,,1  
+LMESH,ALL,1  
+
+TYPE,1 
+Real,3                    
+! Grupo Pilar 3  
+LSEL,S,,,7,8,1                       ! Pilares do 1 Pavimento canto
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+LSEL,S,,,9,10,1  
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+TYPE,1 
+Real,4  
+! Grupo Pilar 4  
+LSEL,S,,,11,12,1                     ! Pilares do 1 Pavimento meio
+LESIZE,ALL,,,1  
+LMESH,ALL,1  
+
+TYPE,1 
+Real,5                    
+! Grupo Pilar 5  
+LSEL,S,,,13,14,1                     ! Pilares do 2 Pavimento canto
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+LSEL,S,,,15,16,1  
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+TYPE,1 
+Real,6  
+! Grupo Pilar 6  
+LSEL,S,,,17,18,1                    ! Pilares do 2 Pavimento meio
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+TYPE,1 
+Real,7                    
+! Grupo Vigas 7 
+LSEL,S,,,19,26,1                    ! Vigas do 2 Pavimento 
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+TYPE,1 
+Real,8                    
+! Grupo Vigas 8 
+LSEL,S,,,27,34,1                    ! Vigas do 1 Pavimento 
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+TYPE,1 
+Real,9                    
+! Grupo Vigas 9 
+LSEL,S,,,35,42,1                    ! Vigas do Terreo
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+! *** DEFINIÇÃO DOS APOIOS ***
+DK,1,all
+DK,17,all
+DK,33,all
+
+! *** CARREGAMENTO ***
+ESEL,S,REAL,,7                           ! seleciona os elementos relacionados a RC 1
+SFBEAM,all,1,PRES,31                     ! aplica carga distribuida nos elementos selecionados
+ESEL,S,REAL,,8
+SFBEAM,all,1,PRES,38
+ESEL,S,REAL,,9
+SFBEAM,all,1,PRES,38
+ALLSEL                                  ! seleciona todos os elementos novamente
+FK,3,FX,36                              ! aplica força concentrada no kp 2
+FK,5,FX,36                              ! aplica força concentrada no kp 3
+FK,7,FX,18                              ! aplica força concentrada no kp 3
+
+FINISH
+/SOLU
+
+! Analise não linear
+ANTYPE,0
+NLGEOM,ON
+NSUBST,10,,,
+
+SOLVE
+FINISH
+/POST1
+
+!PRRSOL,                             ! LISTA AS REAÇÕES DOS APOIOS
+ETABLE,NXI,SMISC,1                   ! DEFINE 'ETABLE' PARA ESFORÇO NORMAL NO NÓ “I”	1
+ETABLE,NX1,SMISC,7                   ! DEFINE 'ETABLE' PARA ESFORÇO NORMAL NO NÓ “J”    7
+ETABLE,QYI,SMISC,2                   ! DEFINE 'ETABLE' PARA ESFORÇO CORTANTE NO NÓ “I”	2
+ETABLE,QY1,SMISC,8                   ! DEFINE 'ETABLE' PARA ESFORÇO CORTANTE NO NÓ “J”  8
+ETABLE,MomFi,SMISC,6                 ! DEFINE 'ETABLE' PARA MOMENTO FLETOR NO NÓ “I”    6
+ETABLE,MomFj,SMISC,12                ! DEFINE 'ETABLE' PARA MOMENTO FLETOR NO NÓ "j"   12
+ETABLE,UX,U,X
+ETABLE,UY,U,Y
+PRETAB,NXI,NX1,QYI,QY1,MomFi,MomFj,UX,UY
+
+
+
+
+
+

@@ -1,0 +1,762 @@
+
+ ANSYS Multiphysics                                
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *            ANSYS Release 16.0     LEGAL NOTICES             *
+ ***************************************************************
+ *                                                             *
+ * Copyright 2014 SAS IP, Inc.  All rights reserved.           *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of ANSYS, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the ANSYS, Inc. online documentation or the ANSYS, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * ANSYS, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * ANSYS, Inc. is a UL registered                              *
+ * ISO 9001:2008 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the ANSYS, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the ANSYS, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ Release 16.0
+     
+ Point Releases and Patches installed:   
+     
+ ANSYS, Inc. Products Release 16.0   
+ ANSYS Mechanical Products Release 16.0  
+ ANSYS Autodyn Release 16.0  
+ ANSYS LS-DYNA Release 16.0  
+ ANSYS AIM Release 16.0  
+ ANSYS CFX (includes ANSYS CFD-Post) Release 16.0
+ ANSYS Fluent (includes ANSYS CFD-Post) Release 16.0 
+ ANSYS TurboGrid Release 16.0
+ ANSYS Polyflow (includes ANSYS CFD-Post) Release 16.0   
+ ANSYS ICEM CFD Release 16.0 
+ ANSYS Aqwa Release 16.0 
+ ANSYS Composite PrepPost Release 16.0   
+ ANSYS Icepak (includes ANSYS CFD-Post) Release 16.0 
+ Catia, Version 6 Release 16.0   
+ ANSYS, Inc. License Manager Release 16.0
+
+
+          *****  ANSYS COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  INITIAL DIRECTORY = C:\Users\Paulo\Desktop\Programa_Paulo
+
+ RELEASE= Release 16.0         BUILD= 16.0      UP20141203   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=file  23:54:54  APR 03, 2019 CP=      0.875
+
+     1  ! ***** EXEMPLO 1 - Pórtico Plano ***** 
+     2      
+     3  /NOPR   
+     4  /PMETH,OFF  
+     5  KEYW,PR_SET,1   
+     6  KEYW,PR_STRUC,1 
+     7      
+     8  /INPUT,variavel_portico,txt,C:\Users\Paulo\Desktop\Programa_Paulo\, 
+     9      
+    10  /PREP7  
+    11      
+    12  ET,1,BEAM3     ! TIPO DE ELEMENTO (VIGA 2D) 
+    13  ET,2,COMBIN40  ! TIPO DE ELEMENTO (MOLA ROTACIONAL) 
+    14  KEYOPT,2,3,6
+    15      
+    16  !*** PROPRIEDADES GEOMÉTRICAS DA SEÇÃO DA VIGA ***  
+    17  R,1,a1,i1   
+    18  R,2,a2,i2   
+    19  R,3,a3,i3   
+    20  R,4,a4,i4   
+    21  R,5,s1,0,0,0,1000,0 
+    22  R,6,s2,0,0,0,1000,0 
+    23  R,7,s3,0,0,0,1000,0 
+    24  R,8,s4,0,0,0,1000,0 
+    25      
+    26  !*** PROPRIEDADES DO MATERIAL ***   
+    27  MP,EX,1,210000000 !(MÓDULO DE ELASTICIDADE) 
+    28  MP,PRXY,1,0.3 ! COEFICIENTE DE POISSON  
+    29      
+    30  !*** DEFINIÇÃO DOS NÓS ***  
+    31  K,1,0,0,0,  
+    32  K,2,0,2,0,  
+    33  K,3,0,4,0,  
+    34  K,4,0,6,0,  
+    35  K,5,0,8,0,  
+    36      
+    37  K,39,0,8,0, 
+    38  K,45,0,4,0, 
+    39  K,6,1.5,4,0 
+    40  K,7,1.5,8,0,
+    41  K,8,3.0,4,0 
+    42  K,9,3.0,8,0,
+    43  K,10,4.5,4,0
+    44  K,11,4.5,8,0,   
+    45  K,46,6,4,0, 
+    46  K,40,6,8,0, 
+    47      
+    48  K,12,6,0,0, 
+    49  K,13,6,2,0, 
+    50  K,14,6,4,0, 
+    51  K,15,6,6,0, 
+    52  K,16,6,8,0, 
+    53      
+    54  K,41,6,8,0, 
+    55  K,47,6,4,0, 
+    56  K,17,7.5,4,0
+    57  K,18,7.5,8,0
+    58  K,19,9,4,0  
+    59  K,20,9,8,0  
+    60  K,21,10.5,4,0   
+    61  K,22,10.5,8,0   
+    62  K,48,12,4,0,
+    63  K,42,12,8,0,
+    64      
+    65  K,23,12,0,0,
+    66  K,24,12,2,0,
+    67  K,25,12,4,0,
+    68  K,26,12,6,0,
+    69  K,27,12,8,0,
+    70      
+    71  K,43,12,8,0,
+    72  K,49,12,4,0,
+    73  K,28,13.5,4,0   
+    74  K,29,13.5,8,0   
+    75  K,30,15,4,0 
+    76  K,31,15,8,0 
+    77  K,32,16.5,4,0   
+    78  K,33,16.5,8,0   
+    79  K,50,18,4,0,
+    80  K,44,18,8,0,
+    81      
+    82  K,34,18,0,0,
+    83  K,35,18,2,0,
+    84  K,36,18,4,0,
+    85  K,37,18,6,0,
+    86  K,38,18,8,0,
+    87      
+    88  ! *** DEFINIÇÃO DOS ELEMENTOS ***   
+    89  ! PILARES DO GRUPO 1
+    90  LSTR,1,2
+    91  LSTR,2,3
+    92  LSTR,34,35  
+    93  LSTR,35,36  
+    94  LSTR,3,4
+    95  LSTR,4,5
+    96  LSTR,36,37  
+    97  LSTR,37,38  
+    98      
+    99  ! PILARES DO GRUPO 2
+   100  LSTR,12,13  
+   101  LSTR,13,14  
+   102  LSTR,23,24  
+   103  LSTR,24,25  
+   104  LSTR,14,15  
+   105  LSTR,15,16  
+   106  LSTR,25,26  
+   107  LSTR,26,27  
+   108      
+   109  ! VIGA DO GRUPO 3   
+   110  LSTR,39,7   
+   111  LSTR,7,9
+   112  LSTR,9,11   
+   113  LSTR,11,40  
+   114  LSTR,41,18  
+   115  LSTR,18,20  
+   116  LSTR,20,22  
+   117  LSTR,22,42  
+   118  LSTR,43,29  
+   119  LSTR,29,31  
+   120  LSTR,31,33  
+   121  LSTR,33,44  
+   122      
+   123  ! VIGA DO GRUPO 4   
+   124  LSTR,45,6   
+   125  LSTR,6,8
+   126  LSTR,8,10   
+   127  LSTR,10,46  
+   128  LSTR,47,17  
+   129  LSTR,17,19  
+   130  LSTR,19,21  
+   131  LSTR,21,48  
+   132  LSTR,49,28  
+   133  LSTR,28,30  
+   134  LSTR,30,32  
+   135  LSTR,32,50  
+   136      
+   137      
+   138  ! *** DISCRETIZAÇÃO DO MODELO ***   
+   139      
+   140  TYPE,1  
+   141  Real,1  
+   142  ! Grupo Pilar 1 
+   143  LSEL,S,,,1,2,1                    ! Pilares do térreo   
+   144  LESIZE,ALL,,,1  
+   145  LMESH,ALL,1 
+   146  LSEL,S,,,3,4,1  
+   147  LESIZE,ALL,,,1  
+   148  LMESH,ALL,1 
+   149  LSEL,S,,,5,6,1  
+   150  LESIZE,ALL,,,1  
+   151  LMESH,ALL,1 
+   152  LSEL,S,,,7,8,1  
+   153  LESIZE,ALL,,,1  
+   154  LMESH,ALL,1 
+   155      
+   156  TYPE,1  
+   157  Real,2  
+   158  LSEL,S,,,9,10,1                    ! Pilares do 1º Pavimento
+   159  LESIZE,ALL,,,1  
+   160  LMESH,ALL,1 
+   161  LSEL,S,,,11,12,1
+   162  LESIZE,ALL,,,1  
+   163  LMESH,ALL,1 
+   164  LSEL,S,,,13,14,1
+   165  LESIZE,ALL,,,1  
+   166  LMESH,ALL,1 
+   167  LSEL,S,,,15,16,1
+   168  LESIZE,ALL,,,1  
+   169  LMESH,ALL,1 
+   170      
+   171  TYPE,1                            ! Vigas do 2º Pavimento   
+   172  Real,3  
+   173  LSEL,S,,,17,28,1
+   174  LESIZE,ALL,,,1  
+   175  LMESH,ALL,1 
+   176      
+   177      
+   178  TYPE,1  
+   179  Real,4                            ! Vigas do 1º Pavimento   
+   180  LSEL,S,,,29,40,1
+   181  LESIZE,ALL,,,1  
+   182  LMESH,ALL,1 
+   183      
+   184  ! Molas Rotacionais              ! Irão ser selecionados os nós e não os Kp 
+   185  TYPE,2  
+   186  REAL,5  
+   187  E,8,21  
+   188  E,10,35 
+   189      
+   190  TYPE,2  
+   191  REAL,6  
+   192  E,18,25 
+   193  E,18,26 
+   194  E,20,30 
+   195  E,20,31 
+   196      
+   197  TYPE,2  
+   198  REAL,7  
+   199  E,3,36  
+   200  E,6,50  
+   201      
+   202  TYPE,2  
+   203  REAL,8  
+   204  E,13,40 
+   205  E,13,41 
+   206  E,16,45 
+   207  E,16,46 
+   208      
+   209  !******************** ACOPLA OS NOS ********************
+   210      
+   211  CP,1,UX,8,21
+   212  CP,2,UX,10,35   
+   213  CP,3,UX,18,25,26
+   214  CP,4,UX,20,30,31
+   215  CP,5,UX,3,36
+   216  CP,6,UX,6,50
+   217  CP,7,UX,13,40,41
+   218  CP,8,UX,16,45,46
+   219      
+   220  CP,9,UY,8,21
+   221  CP,10,UY,10,35  
+   222  CP,11,UY,18,25,26   
+   223  CP,12,UY,20,30,31   
+   224  CP,13,UY,3,36   
+   225  CP,14,UY,6,50   
+   226  CP,15,UY,13,40,41   
+   227  CP,16,UY,16,45,46   
+   228      
+   229  ! *** DEFINIÇÃO DOS APOIOS ***  
+   230  DK,1,all
+   231  DK,12,all   
+   232  DK,23,all   
+   233  DK,34,all   
+   234      
+   235      
+   236  ! *** CARREGAMENTO ***  
+   237      
+   238  ESEL,S,REAL,,3                             ! seleciona os elementos relacionados a RC 1 
+   239  SFBEAM,all,1,PRES,13.25                     ! aplica carga distribuida nos elementos selecionados   
+   240  ESEL,S,REAL,,4  
+   241  SFBEAM,all,1,PRES,26.94 
+   242  ESEL,S,,,1,2,1  
+   243  SFBEAM,all,1,PRES,5.7   
+   244  ESEL,S,,,5,6,1  
+   245  SFBEAM,all,1,PRES,5.7   
+   246  ALLSEL                                   ! seleciona todos os elementos novamente   
+   247      
+   248  FINISH  
+   249  /SOLU   
+   250      
+   251  ! Analise não linear
+   252  ANTYPE,0
+   253  NLGEOM,ON   
+   254  NSUBST,10,,,
+   255      
+   256  SOLVE   
+   257      
+   258  FINISH  
+   259  /POST1  
+   260      
+   261  PRRSOL,                               ! LISTA AS REAÇÕES DOS APOIOS 
+   262      
+   263  ETABLE,NXI,SMISC,1                   ! DEFINE 'ETABLE' PARA ESFORÇO NORMAL NO NÓ “I”	1  
+   264  ETABLE,NX1,SMISC,7                   ! DEFINE 'ETABLE' PARA ESFORÇO NORMAL NO NÓ “J”    7   
+   265  ETABLE,QYI,SMISC,2                   ! DEFINE 'ETABLE' PARA ESFORÇO CORTANTE NO NÓ “I”	2
+   266  ETABLE,QY1,SMISC,8                   ! DEFINE 'ETABLE' PARA ESFORÇO CORTANTE NO NÓ “J”  8   
+   267  ETABLE,MomFi,SMISC,6                 ! DEFINE 'ETABLE' PARA MOMENTO FLETOR NO NÓ “I”    6   
+   268  ETABLE,MomFj,SMISC,12                ! DEFINE 'ETABLE' PARA MOMENTO FLETOR NO NÓ "j"   12   
+   269  ETABLE,UX,U,X   
+   270  ETABLE,UY,U,Y   
+   271  PRETAB,NXI,NX1,QYI,QY1,MomFi,MomFj,UX,UY
+   272      
+   273      
+   274      
+   275      
+   276      
+
+ RUN SETUP PROCEDURE FROM FILE= C:\Program Files\ANSYS Inc\v160\ANSYS\apdl\start160.ans
+
+ /INPUT FILE= C:\Program Files\ANSYS Inc\v160\ANSYS\apdl\start160.ans  LINE=       0
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   23:54:54  APR 03, 2019 CP=      0.953
+
+                                                                               
+
+
+
+          ***** ANSYS ANALYSIS DEFINITION (PREP7) *****
+
+ *** WARNING ***                         CP =       0.969   TIME= 23:54:54
+ Both solid model and finite element model boundary conditions have been 
+ applied to this model.  As solid loads are transferred to the nodes or  
+ elements, they can overwrite directly applied loads.                    
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.969
+
+
+
+ *****  ANSYS SOLUTION ROUTINE  *****
+
+ *****  ANSYS SOLVE    COMMAND  *****
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   23:54:54  APR 03, 2019 CP=      0.969
+
+                                                                               
+
+
+
+ *** WARNING ***                         CP =       0.969   TIME= 23:54:54
+ Zero thickness element 1 may result in wrong thermal or bending stress. 
+  Check real constant table 1.                                           
+
+ *** WARNING ***                         CP =       0.969   TIME= 23:54:54
+ Zero thickness element 9 may result in wrong thermal or bending stress. 
+  Check real constant table 2.                                           
+
+ *** WARNING ***                         CP =       0.969   TIME= 23:54:54
+ Zero thickness element 17 may result in wrong thermal or bending        
+ stress.  Check real constant table 3.                                   
+
+ *** WARNING ***                         CP =       0.969   TIME= 23:54:54
+ Zero thickness element 29 may result in wrong thermal or bending        
+ stress.  Check real constant table 4.                                   
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr                                                                                                                                                                                                                                                           
+ MAXIMUM NUMBER OF EQUILIBRIUM ITERATIONS HAS BEEN MODIFIED              
+  TO BE, NEQIT = 22, BY SOLUTION CONTROL LOGIC.                          
+
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 511000 at element 40.                                         
+ Minimum = 3243.92727 at element 42.                                     
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1        40  BEAM3         0.000   0.000000
+     2        12  COMBIN40      0.000   0.000000
+ Time at end of element matrix formulation CP = 1.03125.                 
+
+ ALL CURRENT ANSYS DATA WRITTEN TO FILE NAME= file.rdb
+  FOR POSSIBLE RESUME FROM THIS POINT
+     FORCE CONVERGENCE VALUE  =  15.41      CRITERION= 0.7862E-01
+     MOMENT CONVERGENCE VALUE =  1.392      CRITERION= 0.7101E-02
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =         114,    Maximum wavefront =     12
+  Memory allocated for solver =          15.259 MB
+  Memory required for in-core =           0.040 MB
+  Memory required for out-of-core =       0.028 MB
+
+
+ *** NOTE ***                            CP =       1.062   TIME= 23:54:54
+ The Sparse Matrix solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+ Sparse solver maximum pivot= 1022000 at node 43 UX.                     
+ Sparse solver minimum pivot= 2444.08927 at node 20 UX.                  
+ Sparse solver minimum pivot in absolute value= 2444.08927 at node 20    
+ UX.                                                                     
+     DISP CONVERGENCE VALUE   = 0.2019E-02  CRITERION= 0.1030E-03
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.2019E-02
+     FORCE CONVERGENCE VALUE  = 0.6067      CRITERION= 0.2166    
+     MOMENT CONVERGENCE VALUE = 0.7916E-03  CRITERION= 0.2498E-01 <<< CONVERGED
+     DISP CONVERGENCE VALUE   = 0.1104E-04  CRITERION= 0.1057E-03 <<< CONVERGED
+    EQUIL ITER   2 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.1104E-04
+     FORCE CONVERGENCE VALUE  = 0.1011E-03  CRITERION= 0.2211     <<< CONVERGED
+     MOMENT CONVERGENCE VALUE = 0.1575E-04  CRITERION= 0.2558E-01 <<< CONVERGED
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   2
+
+   *** ELEMENT RESULT CALCULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1        40  BEAM3         0.000   0.000000
+     2        12  COMBIN40      0.000   0.000000
+
+   *** NODAL LOAD CALCULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1        40  BEAM3         0.000   0.000000
+     2        12  COMBIN40      0.000   0.000000
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      2
+ *** TIME =  0.100000         TIME INC =  0.100000    
+ *** AUTO STEP TIME:  NEXT TIME INC = 0.10000      UNCHANGED
+
+     FORCE CONVERGENCE VALUE  =  15.41      CRITERION= 0.2523    
+     MOMENT CONVERGENCE VALUE =  1.392      CRITERION= 0.2747E-01
+     DISP CONVERGENCE VALUE   = 0.2044E-02  CRITERION= 0.1043E-03
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.2044E-02
+     FORCE CONVERGENCE VALUE  = 0.7263      CRITERION= 0.4332    
+     MOMENT CONVERGENCE VALUE = 0.3653E-02  CRITERION= 0.5026E-01 <<< CONVERGED
+     DISP CONVERGENCE VALUE   = 0.8841E-05  CRITERION= 0.1069E-03 <<< CONVERGED
+    EQUIL ITER   2 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.8841E-05
+     FORCE CONVERGENCE VALUE  = 0.1643E-03  CRITERION= 0.4423     <<< CONVERGED
+     MOMENT CONVERGENCE VALUE = 0.1799E-04  CRITERION= 0.5134E-01 <<< CONVERGED
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   2
+ *** LOAD STEP     1   SUBSTEP     2  COMPLETED.    CUM ITER =      4
+ *** TIME =  0.200000         TIME INC =  0.100000    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.15000      INCREASED (FACTOR = 1.5000)
+
+     FORCE CONVERGENCE VALUE  =  23.11      CRITERION= 0.4810    
+     MOMENT CONVERGENCE VALUE =  2.088      CRITERION= 0.5336E-01
+     DISP CONVERGENCE VALUE   = 0.3103E-02  CRITERION= 0.1583E-03
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.3103E-02
+     FORCE CONVERGENCE VALUE  =  1.726      CRITERION= 0.7580    
+     MOMENT CONVERGENCE VALUE = 0.1103E-01  CRITERION= 0.8841E-01 <<< CONVERGED
+     DISP CONVERGENCE VALUE   = 0.1842E-04  CRITERION= 0.1625E-03 <<< CONVERGED
+    EQUIL ITER   2 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.1842E-04
+     FORCE CONVERGENCE VALUE  = 0.6088E-03  CRITERION= 0.7740     <<< CONVERGED
+     MOMENT CONVERGENCE VALUE = 0.5474E-04  CRITERION= 0.9032E-01 <<< CONVERGED
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   2
+ *** LOAD STEP     1   SUBSTEP     3  COMPLETED.    CUM ITER =      6
+ *** TIME =  0.350000         TIME INC =  0.150000    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.22500      INCREASED (FACTOR = 1.5000)
+
+     FORCE CONVERGENCE VALUE  =  34.67      CRITERION= 0.8253    
+     MOMENT CONVERGENCE VALUE =  3.132      CRITERION= 0.9259E-01
+     DISP CONVERGENCE VALUE   = 0.4740E-02  CRITERION= 0.2418E-03
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.4740E-02
+     FORCE CONVERGENCE VALUE  =  4.027      CRITERION=  1.245    
+     MOMENT CONVERGENCE VALUE = 0.2935E-01  CRITERION= 0.1464     <<< CONVERGED
+     DISP CONVERGENCE VALUE   = 0.3972E-04  CRITERION= 0.2488E-03 <<< CONVERGED
+    EQUIL ITER   2 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.3972E-04
+     FORCE CONVERGENCE VALUE  = 0.2192E-02  CRITERION=  1.272     <<< CONVERGED
+     MOMENT CONVERGENCE VALUE = 0.1677E-03  CRITERION= 0.1496     <<< CONVERGED
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   2
+ *** LOAD STEP     1   SUBSTEP     4  COMPLETED.    CUM ITER =      8
+ *** TIME =  0.575000         TIME INC =  0.225000    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.33750      INCREASED (FACTOR = 1.5000)
+
+     FORCE CONVERGENCE VALUE  =  52.00      CRITERION=  1.342    
+     MOMENT CONVERGENCE VALUE =  4.698      CRITERION= 0.1522    
+     DISP CONVERGENCE VALUE   = 0.7308E-02  CRITERION= 0.3728E-03
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.7308E-02
+     FORCE CONVERGENCE VALUE  =  9.292      CRITERION=  1.975    
+     MOMENT CONVERGENCE VALUE = 0.7393E-01  CRITERION= 0.2351     <<< CONVERGED
+     DISP CONVERGENCE VALUE   = 0.8846E-04  CRITERION= 0.3851E-03 <<< CONVERGED
+    EQUIL ITER   2 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.8846E-04
+     FORCE CONVERGENCE VALUE  = 0.7865E-02  CRITERION=  2.018     <<< CONVERGED
+     MOMENT CONVERGENCE VALUE = 0.5359E-03  CRITERION= 0.2403     <<< CONVERGED
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   2
+ *** LOAD STEP     1   SUBSTEP     5  COMPLETED.    CUM ITER =     10
+ *** TIME =  0.912500         TIME INC =  0.337500    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.87500E-01  DECREASED (FACTOR = 0.2593)
+
+     FORCE CONVERGENCE VALUE  =  13.48      CRITERION=  1.965    
+     MOMENT CONVERGENCE VALUE =  1.218      CRITERION= 0.2326    
+     DISP CONVERGENCE VALUE   = 0.1975E-02  CRITERION= 0.3774E-03
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=  0.1975E-02
+     FORCE CONVERGENCE VALUE  =  1.446      CRITERION=  2.167     <<< CONVERGED
+     MOMENT CONVERGENCE VALUE = 0.3168E-01  CRITERION= 0.2592     <<< CONVERGED
+     DISP CONVERGENCE VALUE   = 0.1703E-04  CRITERION= 0.3851E-03 <<< CONVERGED
+    EQUIL ITER   2 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC = -0.1703E-04
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   2
+ *** LOAD STEP     1   SUBSTEP     6  COMPLETED.    CUM ITER =     12
+ *** TIME =   1.00000         TIME INC =  0.875000E-01
+
+
+ *** ANSYS BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.062 MB WRITTEN ON ELEMENT MATRIX FILE: file.emat
+        0.062 MB WRITTEN ON ELEMENT SAVED DATA FILE: file.esav
+        0.062 MB WRITTEN ON ASSEMBLED MATRIX FILE: file.full
+        0.375 MB WRITTEN ON RESULTS FILE: file.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         1.469
+
+
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   23:54:54  APR 03, 2019 CP=      1.500
+
+                                                                               
+
+
+
+          ***** ANSYS RESULTS INTERPRETATION (POST1) *****
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   23:54:54  APR 03, 2019 CP=      1.500
+
+                                                                               
+
+
+ 
+  ***** POST1 TOTAL REACTION SOLUTION LISTING *****                            
+ 
+  LOAD STEP=     1  SUBSTEP=     6                                             
+   TIME=    1.0000      LOAD CASE=   0                                         
+ 
+  THE FOLLOWING X,Y,Z SOLUTIONS ARE IN THE GLOBAL COORDINATE SYSTEM            
+ 
+    NODE      FX          FY          MZ    
+       1  -12.958      108.20      21.525    
+       4  -15.058      118.67      31.520    
+      11  -9.9486      248.25      22.800    
+      14  -7.5930      248.42      19.538    
+
+ TOTAL VALUES
+ VALUE   -45.558      723.54      95.384    
+
+ *** WARNING ***                         CP =       1.500   TIME= 23:54:54
+ The ETABLE command has requested item = SMISC, comp = 7 of element 41   
+ (element type COMBIN40).  0.0 is output, as this component is not       
+ available.  Checking for this discontinues.                             
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   23:54:54  APR 03, 2019 CP=      1.500
+
+                                                                               
+
+
+ 
+  ***** POST1 ELEMENT TABLE LISTING *****                                      
+ 
+    STAT    CURRENT     CURRENT     CURRENT     CURRENT     CURRENT     CURRENT     CURRENT     CURRENT 
+    ELEM    NXI         NX1         QYI         QY1         MOMFI       MOMFJ       UX          UY      
+       1  -108.18     -108.18     -13.084     -1.6836     -21.463     -6.6282     0.18505E-02-0.19105E-03
+       2  -108.18     -108.18     -2.0262      9.3738     -6.6418     -14.022     0.76905E-02-0.57944E-03
+       3  -118.64     -118.64     -15.209     -15.209     -31.424    -0.85221     0.26881E-02-0.21111E-03
+       4  -118.64     -118.64     -15.236     -15.236    -0.97447      29.651     0.82936E-02-0.63397E-03
+       5  -37.145     -37.145     -4.0291      7.3709      13.315      9.9675     0.15113E-01-0.84769E-03
+       6  -37.134     -37.134      7.4071      18.807      9.9860     -16.269     0.19944E-01-0.98444E-03
+       7  -39.484     -39.484     -11.292     -11.292     -22.620     0.26075E-02 0.13571E-01-0.91752E-03
+       8  -39.484     -39.484     -11.293     -11.293    -0.27399E-01  22.595     0.18295E-01-0.10611E-02
+       9  -248.23     -248.23     -10.277     -10.277     -22.606     -1.7717     0.25651E-02-0.41214E-03
+      10  -248.22     -248.22     -10.422     -10.422     -1.9976      19.132     0.82978E-02-0.12381E-02
+      11  -248.40     -248.40     -7.9248     -7.9248     -19.362     -3.2953     0.22948E-02-0.41184E-03
+      12  -248.40     -248.40     -8.1858     -8.1858     -3.4714      13.125     0.79660E-02-0.12386E-02
+      13  -80.681     -80.681     -5.1274     -5.1274     -10.582    -0.28218     0.13817E-01-0.17877E-02
+      14  -80.680     -80.680     -5.1351     -5.1351    -0.31815      9.9972     0.18617E-01-0.20592E-02
+      15  -81.197     -81.197     -2.8488     -2.8488     -4.5548      1.1681     0.13908E-01-0.17905E-02
+      16  -81.198     -81.198     -2.8188     -2.8188      1.1482      6.8107     0.18666E-01-0.20638E-02
+      17  -18.663     -18.663     -37.205     -17.330     -16.276      24.642     0.21298E-01-0.64037E-02
+      18  -18.727     -18.727     -17.271      2.6044      24.633      35.638     0.21227E-01-0.13969E-01
+      19  -18.712     -18.712      2.7023      22.577      35.639      16.671     0.21170E-01-0.13691E-01
+      20  -18.662     -18.662      22.608      42.483      16.683     -32.157     0.21104E-01-0.66979E-02
+      21  -13.688     -13.688     -38.353     -18.478     -22.138      20.499     0.21034E-01-0.67771E-02
+      22  -13.743     -13.743     -18.445      1.4295      20.492      33.258     0.20982E-01-0.13386E-01
+      23  -13.735     -13.735      1.4952      21.370      33.259      16.104     0.20939E-01-0.13077E-01
+      24  -13.690     -13.690      21.392      41.267      16.112     -30.896     0.20888E-01-0.64696E-02
+      25  -10.991     -10.991     -40.050     -20.175     -24.068      21.112     0.20827E-01-0.71409E-02
+      26  -11.052     -11.052     -20.147    -0.27186      21.106      36.424     0.20779E-01-0.14381E-01
+      27  -11.054     -11.054    -0.21236      19.663      36.423      21.832     0.20742E-01-0.14166E-01
+      28  -10.991     -10.991      19.692      39.567      21.838     -22.617     0.20690E-01-0.63922E-02
+      29  -13.176     -13.176     -71.070     -30.660     -27.402      48.911     0.11639E-01-0.73325E-02
+      30  -13.330     -13.330     -30.603      9.8069      48.903      64.503     0.11581E-01-0.16173E-01
+      31  -13.260     -13.260      9.8905      50.300      64.506      19.353     0.11543E-01-0.14953E-01
+      32  -13.200     -13.200      50.307      90.717      19.366     -86.423     0.11494E-01-0.65503E-02
+      33  -8.3530     -8.3530     -76.930     -36.520     -56.542      28.556     0.11445E-01-0.59895E-02
+      34  -8.4405     -8.4405     -36.506      3.9044      28.550      53.004     0.11414E-01-0.12375E-01
+      35  -8.4186     -8.4186      3.9448      44.355      53.005      16.775     0.11390E-01-0.11803E-01
+      36  -8.3802     -8.3802      44.356      84.766      16.782     -80.072     0.11360E-01-0.54172E-02
+      37  -3.2783     -3.2783     -82.491     -42.081     -62.298      31.135     0.11320E-01-0.70814E-02
+      38  -3.3932     -3.3932     -42.074     -1.6641      31.133      63.938     0.11289E-01-0.15397E-01
+      39  -3.4048     -3.4048     -1.6430      38.767      63.938      36.093     0.11271E-01-0.15436E-01
+      40  -3.2739     -3.2739      38.776      79.186      36.096     -52.380     0.11237E-01-0.67171E-02
+      41  -16.275      0.0000      0.0000      0.0000      0.0000      0.0000     0.21341E-01-0.10503E-02
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   23:54:54  APR 03, 2019 CP=      1.500
+
+                                                                               
+
+
+ 
+  ***** POST1 ELEMENT TABLE LISTING *****                                      
+ 
+    STAT    CURRENT     CURRENT     CURRENT     CURRENT     CURRENT     CURRENT     CURRENT     CURRENT 
+    ELEM    NXI         NX1         QYI         QY1         MOMFI       MOMFJ       UX          UY      
+      42   22.618      0.0000      0.0000      0.0000      0.0000      0.0000     0.20658E-01-0.11329E-02
+      43   32.162      0.0000      0.0000      0.0000      0.0000      0.0000     0.21066E-01-0.21951E-02
+      44  -22.139      0.0000      0.0000      0.0000      0.0000      0.0000     0.21066E-01-0.21951E-02
+      45   30.899      0.0000      0.0000      0.0000      0.0000      0.0000     0.20858E-01-0.22000E-02
+      46  -24.069      0.0000      0.0000      0.0000      0.0000      0.0000     0.20858E-01-0.22000E-02
+      47  -27.401      0.0000      0.0000      0.0000      0.0000      0.0000     0.11680E-01-0.77677E-03
+      48   52.381      0.0000      0.0000      0.0000      0.0000      0.0000     0.11211E-01-0.84572E-03
+      49   86.431      0.0000      0.0000      0.0000      0.0000      0.0000     0.11465E-01-0.16520E-02
+      50  -56.545      0.0000      0.0000      0.0000      0.0000      0.0000     0.11465E-01-0.16520E-02
+      51   80.077      0.0000      0.0000      0.0000      0.0000      0.0000     0.11343E-01-0.16535E-02
+      52  -62.299      0.0000      0.0000      0.0000      0.0000      0.0000     0.11343E-01-0.16535E-02
+
+ MINIMUM VALUES
+ ELEM         11          11          37          37          37          32           1          30
+ VALUE   -248.40     -248.40     -82.491     -42.081     -62.298     -86.423     0.18505E-02-0.16173E-01
+
+ MAXIMUM VALUES
+ ELEM         49          41          32          32          31          30          41           1
+ VALUE    86.431      0.0000      50.307      90.717      64.506      64.503     0.21341E-01-0.19105E-03
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          6
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
+
+
+ ***** PROBLEM TERMINATED BY INDICATED ERROR(S) OR BY END OF INPUT DATA *****
+
++--------------------- A N S Y S   S T A T I S T I C S ------------------------+
+
+Release: Release 16.0       Build: 16.0       Update: UP20141203   Platform: WINDOWS x64 
+Date Run: 04/03/2019   Time: 23:54
+Windows Process ID:        14996
+
+Processor Model: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+
+Compiler: Intel(R) FORTRAN Compiler Version 14.0.0  (Build: 20140422)
+          Intel(R) C/C++ Compiler Version 14.0.0  (Build: 20140422)
+          Intel(R) Math Kernel Library Version 11.1.3 Product Build 20140917
+
+Total number of cores available         :    4
+Number of physical cores available      :    2
+Number of processes requested           :    1
+Number of threads per process requested :    2
+Total number of cores requested         :    2 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: file
+Working Directory: C:\Users\Paulo\Desktop\Programa_Paulo
+
+Total CPU time for main thread                    :        1.4 seconds
+Total CPU time summed for all threads             :        1.5 seconds
+
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.3 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+
+Maximum total memory used                         :       23.0 MB
+Maximum total memory allocated                    :     2112.0 MB
+Maximum total memory available                    :          8 GB
+
++------------------ E N D   A N S Y S   S T A T I S T I C S -------------------+
+
+
+ *---------------------------------------------------------------------------*
+ |                                                                           |
+ |                            ANSYS RUN COMPLETED                            |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Ansys Release 16.0          Build 16.0         UP20141203     WINDOWS x64 |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Database Requested(-db)  1024 MB    Scratch Memory Requested      1024 MB |
+ | Maximum Database Used       1 MB    Maximum Scratch Memory Used     22 MB |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ |        CP Time      (sec) =          1.516       Time  =  23:54:54        |
+ |        Elapsed Time (sec) =          2.000       Date  =  04/03/2019      |
+ |                                                                           |
+ *---------------------------------------------------------------------------*

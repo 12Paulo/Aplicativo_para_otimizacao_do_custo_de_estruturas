@@ -1,0 +1,149 @@
+! ***** EXEMPLO 1 - Pórtico Plano *****
+
+/NOPR
+/PMETH,OFF
+KEYW,PR_SET,1
+KEYW,PR_STRUC,1
+
+/INPUT,variavel_portico,txt,C:\Users\Paulo\Desktop\Programa_Paulo\,
+
+/PREP7
+
+ET,1,BEAM3 ! TIPO DE ELEMENTO (VIGA 2D)
+
+!*** PROPRIEDADES GEOMÉTRICAS DA SEÇÃO DA VIGA ***
+R,1,a1,i1
+R,2,a2,i2
+R,3,a3,i3
+R,4,a4,i4
+
+!*** PROPRIEDADES DO MATERIAL ***
+MP,EX,1,206000000 !(MÓDULO DE ELASTICIDADE)
+MP,PRXY,1,0.3 ! COEFICIENTE DE POISSON
+
+!*** DEFINIÇÃO DOS NÓS ***
+K,1,0,0,0,
+K,2,0,1.825,0,
+K,3,0,3.650,0,
+K,4,0,5.475,0,
+K,5,0,7.300,0,
+
+K,6,1.825,7.300,0,
+K,7,3.650,7.300,0,
+K,8,5.475,7.300,0,
+
+K,9,7.300,7.300,0,
+K,10,7.300,5.475,0,
+K,11,7.300,3.650,0,
+K,12,7.300,1.825,0,
+K,13,7.300,0,0,
+
+K,14,1.825,3.650,0,
+K,15,3.650,3.650,0,
+K,16,5.475,3.650,0,
+
+! *** DEFINIÇÃO DOS ELEMENTOS ***
+! PILARES DO GRUPO 1
+LSTR,1,2
+LSTR,2,3
+LSTR,13,12
+LSTR,12,11
+
+! PILARES DO GRUPO 2
+LSTR,3,4
+LSTR,4,5
+LSTR,11,10
+LSTR,10,9
+
+! VIGA DO GRUPO 3
+LSTR,5,6
+LSTR,6,7
+LSTR,7,8
+LSTR,8,9
+
+! VIGA DO GRUPO 4
+LSTR,3,14
+LSTR,14,15
+LSTR,15,16
+LSTR,16,11
+
+! *** DEFINIÇÃO DOS APOIOS ***
+DK,1,all
+DK,13,all
+
+! *** DISCRETIZAÇÃO DO MODELO ***
+
+!SMRTSIZE,1                       ! Define precisão da malha
+            
+TYPE,1 
+Real,1                    
+! Grupo Pilar 1  
+LSEL,S,,,1,2,1                    ! Pilares do térreo
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+LSEL,S,,,3,4,1  
+LESIZE,ALL,,,1  
+LMESH,ALL,1    
+
+TYPE,1               
+Real,2
+LSEL,S,,,5,6,1                    ! Pilares do 1º Pavimento
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+LSEL,S,,,7,8,1  
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+ 
+TYPE,1                            ! Vigas do 1º Pavimento
+Real,3
+LSEL,S,,,9,12,1      
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+TYPE,1 
+Real,4                            ! Vigas do Térreo
+LSEL,S,,,13,16,1  
+LESIZE,ALL,,,1  
+LMESH,ALL,1 
+
+
+! *** CARREGAMENTO ***
+
+ESEL,S,REAL,,4                             ! seleciona os elementos relacionados a RC 1
+SFBEAM,all,1,PRES,62.5                     ! aplica carga distribuida nos elementos selecionados
+ESEL,S,REAL,,3
+SFBEAM,all,1,PRES,38
+ALLSEL                                     ! seleciona todos os elementos novamente
+
+FK,3,FX,36                              ! aplica força concentrada no kp 2
+FK,5,FX,18                              ! aplica força concentrada no kp 3
+
+FINISH
+/SOLU
+
+! Analise não linear
+ANTYPE,0
+NLGEOM,ON
+NSUBST,10,,,
+
+SOLVE
+
+FINISH
+/POST1
+
+PRRSOL,                               ! LISTA AS REAÇÕES DOS APOIOS
+
+ETABLE,NXI,SMISC,1                   ! DEFINE 'ETABLE' PARA ESFORÇO NORMAL NO NÓ “I”	1
+ETABLE,NX1,SMISC,7                   ! DEFINE 'ETABLE' PARA ESFORÇO NORMAL NO NÓ “J”    7
+ETABLE,QYI,SMISC,2                   ! DEFINE 'ETABLE' PARA ESFORÇO CORTANTE NO NÓ “I”	2
+ETABLE,QY1,SMISC,8                   ! DEFINE 'ETABLE' PARA ESFORÇO CORTANTE NO NÓ “J”  8
+ETABLE,MomFi,SMISC,6                 ! DEFINE 'ETABLE' PARA MOMENTO FLETOR NO NÓ “I”    6
+ETABLE,MomFj,SMISC,12                ! DEFINE 'ETABLE' PARA MOMENTO FLETOR NO NÓ "j"   12
+ETABLE,UX,U,X
+ETABLE,UY,U,Y
+PRETAB,NXI,NX1,QYI,QY1,MomFi,MomFj,UX,UY
+
+
+
+
+
