@@ -15,4 +15,7 @@ Para melhor compreensão do projeto, abaixo segue a arquitetura da ferramenta qu
   <a > <img src="imagem_arq.jpg" width = 800px> </a>  
 </p>
 
-Na pasta entrada é possível encontrar os arquivos de entrada, assim como o modelo estrutural em linguagem APDL, na pasta principal os códigos desenvolvidos na plataforma Matlab. 
+# Versões dos softawares
+
+ Matlab: Versão R15
+ Ansys: Versão 16
