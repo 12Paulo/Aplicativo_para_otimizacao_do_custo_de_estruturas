@@ -17,5 +17,4 @@ Para melhor compreensão do projeto, abaixo segue a arquitetura da ferramenta qu
 
 # Versões dos softawares
 
- Matlab: Versão R15
- Ansys: Versão 16
+ Matlab: Versão R15 | Ansys: Versão 16
